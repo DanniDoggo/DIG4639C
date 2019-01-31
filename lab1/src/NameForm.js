@@ -2,7 +2,7 @@ import React from 'react';
 class NameForm extends React.Component {
       constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: '', nameAvailable:false,};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,9 +14,15 @@ class NameForm extends React.Component {
       }
 
       handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        //alert('A name was submitted: ' + this.state.value);
+        if(/[a-zA-Z]+/.test(this.state.value)){
+          this.setState({nameAvailable:true})
+        }
+        else{
+          this.setState({isValid:true});
+        }
         event.preventDefault();
-        const submitted = event.submitted;
+        //const submitted = event.submitted;
       /*if (!props.events) {
         return null;
       }
@@ -32,8 +38,9 @@ class NameForm extends React.Component {
 
 
       render() {
-        const value = this.state.value;
+        let returnArray=[];
         return (
+        <div> {(!this.state.nameAvailable) ?
           <form onSubmit={this.handleSubmit}>
             <label>
               Name:
@@ -41,7 +48,12 @@ class NameForm extends React.Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
-        );
-      }
+            //if (!this.state.isValid){
+
+            //}
+            :
+            <div> hi {this.state.value}</div>
+          } </div>);
     }
+  }
     export default NameForm;
